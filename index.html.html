@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tata Motors India: Volume Analysis and Forecasting</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F5F7FA;--card:#fff;--ink:#0B2545;--mut:#5b6b82;--line:#dde3ec;--navy:#0B2545;--steel:#13315C;--teal:#1B998B;--amber:#F4A259;--up:#1e8e3e;--down:#c5372c;--hi:#e8f6f4}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d1520;--card:#15202e;--ink:#e7edf6;--mut:#9fb0c6;--line:#27364a;--hi:#12302f}}
+:root[data-theme=dark]{--bg:#0d1520;--card:#15202e;--ink:#e7edf6;--mut:#9fb0c6;--line:#27364a;--hi:#12302f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 'IBM Plex Sans','Segoe UI',Arial,sans-serif}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);display:flex;gap:4px;padding:0 16px;overflow-x:auto}
+nav button{background:none;border:0;color:#b8c6dc;font:500 14px inherit;font-family:inherit;padding:14px 16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button[aria-selected=true]{color:#fff;border-color:var(--amber)}nav button:focus-visible{outline:2px solid var(--amber)}
+.hero{background:linear-gradient(120deg,var(--navy),var(--steel));color:#fff;padding:36px 16px 28px}
+.w{max-width:1100px;margin:0 auto}.hero .w{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:clamp(24px,4vw,36px);line-height:1.15;margin:0 0 8px;font-weight:600;max-width:640px}.hero p{margin:0;color:#c9d6ea;max-width:620px}
+main{padding:20px 16px 40px}section{display:none}section.on{display:block}
+h2{font-size:20px;margin:28px 0 12px;font-weight:600}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:-34px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:0 2px 8px rgba(11,37,69,.08)}
+.k b{display:block;font-size:24px;font-weight:600}.k span{color:var(--mut);font-size:13px}.up{color:var(--up)}.dn{color:var(--down)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.c h3{margin:0 0 8px;font-size:15px;font-weight:600}.cb{position:relative;height:270px}
+.so{margin:10px 0 0;font-size:13.5px;color:var(--mut);border-left:3px solid var(--teal);padding-left:10px}
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.sw div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}.sw h4{margin:0 0 6px}.sw ul{margin:0;padding-left:18px;font-size:14px}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:14px}.ctl input[type=range]{width:100%;accent-color:var(--teal)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+tr.best td{background:var(--hi);font-weight:600}.note{font-size:13px;color:var(--mut)}
+.box{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;font-size:14px;margin:12px 0}
+.tg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}.tg button{border:0;background:var(--card);color:var(--ink);padding:8px 16px;font:inherit;cursor:pointer}.tg button.on{background:var(--teal);color:#fff}
+input[type=number],select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);width:110px}
+ol.rm{padding-left:20px}ol.rm li{margin:6px 0}footer{border-top:1px solid var(--line);padding:16px;font-size:13px;color:var(--mut);text-align:center}
+@media print{nav{display:none}section{display:block!important}}
+</style></head><body>
+<nav role="tablist"><button role="tab" aria-selected="true" data-p="p1">1. Company and past data</button><button role="tab" aria-selected="false" data-p="p2">2. Forecasting techniques</button><button role="tab" aria-selected="false" data-p="p3">3. Results and recommendations</button></nav>
+<div class="hero"><div class="w"><div><h1 id="ht">Tata Motors India volumes were up 40.9% year on year by Q2 FY27, and simple forecasts lagged behind the jump</h1><p id="hp">Twenty-two quarters of wholesale volumes (Q1 FY22 to Q2 FY27), tested against eight forecasting methods and one blend.</p></div>
+<svg width="220" height="110" viewBox="0 0 220 110" role="img" aria-label="Illustration of a factory and a car"><rect x="10" y="40" width="110" height="55" fill="#13315C" stroke="#1B998B" stroke-width="2"/><path d="M10 40l22-18v18l22-18v18l22-18v18l22-18v18" fill="#1B998B"/><rect x="100" y="12" width="12" height="28" fill="#F4A259"/><rect x="24" y="62" width="14" height="14" fill="#F4A259"/><rect x="52" y="62" width="14" height="14" fill="#F4A259"/><path d="M118 88q4-22 28-24l20-12h26q8 4 12 22v14h-86z" fill="#F4A259"/><circle cx="148" cy="94" r="10" fill="#0B2545" stroke="#fff" stroke-width="3"/><circle cx="196" cy="94" r="10" fill="#0B2545" stroke="#fff" stroke-width="3"/><path d="M0 100h220" stroke="#8aa0c2"/></svg></div></div>
+<main class="w">
+<section id="p1" class="on">
+<div class="kp" id="k1"></div>
+<h2>Company snapshot</h2>
+<div class="c"><p style="margin:0">Tata Motors' India auto business makes commercial vehicles (CV: trucks, buses, small commercial vehicles) and passenger vehicles (PV: cars and SUVs, including EVs). In 2025 the two were split into separate listed companies, so this report adds CV and PV together to keep one continuous series. Figures are wholesale dispatches from the company, not retail registrations. Jaguar Land Rover is not included.</p></div>
+<h2>What the past data shows</h2>
+<div class="g">
+<div class="c"><h3>Quarterly total volume (units)</h3><div class="cb"><canvas id="a1"></canvas></div><p class="so">Q2 FY27 (336,837) is the highest quarter in the dataset. The dip to 210,415 in Q1 FY26 came right before the climb.</p></div>
+<div class="c"><h3>CV and PV volume by quarter (units)</h3><div class="cb"><canvas id="a2"></canvas></div><p class="so">Both segments rose together from Q3 FY26, with PV supplying roughly 60% of volume. FY22 has no split in the source data.</p></div>
+<div class="c"><h3>Year-on-year growth by quarter (%)</h3><div class="cb"><canvas id="a3"></canvas></div><p class="so">Growth stayed between -12% and +5% from Q1 FY24 to Q1 FY26, then reached +11.2%, +21.6%, +32.1%, +38.3% and +40.9% in the last five quarters. The FY23 figures compare against a weak FY22 base.</p></div>
+<div class="c"><h3>Annual volume by fiscal year (units)</h3><div class="cb"><canvas id="a4"></canvas></div><p class="so">FY26 rose 14.7% to 1,069,916. The first half of FY27 (627,899) is already 58.7% of that full year.</p></div>
+<div class="c"><h3>EV units and EV share of PV</h3><div class="cb"><canvas id="a5"></canvas></div><p class="so">EV volume fell 12.9% in FY25, then rose 43.3% in FY26 to 92,120, which is 14.4% of PV. EV data exists only for FY22, FY24, FY25 and FY26.</p></div>
+<div class="c"><h3>Share of annual volume by quarter (average FY22 to FY26, %)</h3><div class="cb"><canvas id="a6"></canvas></div><p class="so">Q4 was the highest quarter in every full year. Q1 was the lowest in three of the five years (Q3 in FY23, Q2 in FY25).</p></div>
+</div>
+<h2>Strengths, weaknesses, opportunities, threats</h2>
+<div class="sw"><div><h4>Strengths</h4><ul><li>Balanced mix of CV and PV</li><li>Growing EV line (92,120 units in FY26)</li><li>Volumes now at record levels</li></ul></div><div><h4>Weaknesses</h4><ul><li>Volumes fell in FY25 (-3.7%)</li><li>Strong dependence on a few quarters</li><li>Recent growth is steep and hard to plan for</li></ul></div><div><h4>Opportunities</h4><ul><li>EV share of PV rose to 14.4%</li><li>Better forecasts to cut stock and idle capacity</li></ul></div><div><h4>Threats</h4><ul><li>Sharp reversal if the recent surge fades</li><li>Supplier lead times when demand jumps</li><li>Causes of the surge are not in this dataset and need checking</li></ul></div></div>
+<p class="note">SWOT points are qualitative and use only facts visible in the data. Competitor market share and macro drivers are not in the dataset, so they are not shown.</p>
+</section>
+
+<section id="p2">
+<h2>Why forecasting matters in automobile operations</h2>
+<div class="c"><p style="margin:0">Vehicle plants plan production, parts orders and shifts weeks ahead. A forecast that is too low means lost sales and overtime. One that is too high means unsold stock and holding cost. Every method below is scored on the same quarters (t = 5 to 22, Q1 FY23 to Q2 FY27) so the scores can be compared fairly.</p></div>
+<h2>Adjust the methods</h2>
+<div class="c ctl">
+<label>Alpha (SES and Holt): <b id="va"></b><input type="range" id="sa" min=".1" max=".9" step=".05" value=".3"></label>
+<label>Beta (Holt and Holt-Winters): <b id="vb"></b><input type="range" id="sb" min=".05" max=".9" step=".05" value=".1"></label>
+<label>Gamma (Holt-Winters): <b id="vg"></b><input type="range" id="sg" min=".05" max=".9" step=".05" value=".3"></label>
+<label>Moving average window: <b id="vk"></b><input type="range" id="sk" min="2" max="4" step="1" value="4"></label></div>
+<div class="g" style="margin-top:16px">
+<div class="c" style="grid-column:1/-1"><h3>Actual vs forecast, total sales (units). Click a legend item to show or hide it.</h3><div class="cb" style="height:340px"><canvas id="b1"></canvas></div><p class="so" id="s1"></p></div>
+<div class="c"><h3>Error comparison: MAPE (%), lower is better</h3><div class="cb"><canvas id="b2"></canvas></div></div>
+<div class="c"><h3>Methods ranked by error</h3><div class="tw"><table id="tb"></table></div><p class="note">* Regression is fitted on the same quarters it is scored on, so its error is flattering and it is left out of the ranking. Holt-Winters starts from only four seasons of data. Best row = lowest MAPE.</p></div>
+</div>
+<h2>Formulas and a worked example</h2>
+<div class="c" id="fm"></div>
+<h2>Check against the Excel starter sheet</h2>
+<div class="c tw"><table id="vt"></table></div>
+</section>
+
+<section id="p3">
+<h2>Results</h2>
+<div class="c" id="rs"></div>
+<h2>Recommendations</h2>
+<div class="c"><ol class="rm">
+<li><b>Plan production with a blend of the last quarter and the 4-quarter average.</b> It gave the lowest RMSE of every method tested.</li>
+<li><b>Size safety stock from forecast error, not a rule of thumb.</b> Safety stock = z x RMSE x square root of lead time in quarters.</li>
+<li><b>Re-check the forecast every quarter and reset after a jump.</b> Averaging methods lag when volume moves fast, as the last six quarters show.</li>
+<li><b>Build extra capacity ahead of Q4.</b> Q4 has carried the largest share of annual volume in every year.</li>
+<li><b>Forecast PV, CV and EV separately.</b> Their growth rates differ (FY26: CV +13.6%, PV +15.3%, EV +43.3%).</li></ol></div>
+<h2>Effect of the recommendations</h2>
+<div class="c"><div class="ctl" style="margin-bottom:12px">
+<label>Service level <select id="z"><option value="1.282">90%</option><option value="1.645" selected>95%</option><option value="2.326">99%</option></select></label>
+<label>Lead time (quarters) <input type="number" id="lt" value="1" min=".25" step=".25"></label>
+<label>Holding cost per unit per year (INR) <input type="number" id="hc" placeholder="enter value"></label></div>
+<div class="tg" role="group" aria-label="Scenario"><button id="sc0">Current (4-quarter average)</button><button id="sc1" class="on">Recommended (blend)</button></div>
+<div class="kp" id="k3" style="margin-top:14px"></div>
+<div class="g" style="margin-top:14px"><div class="cb"><canvas id="c1"></canvas></div><div class="cb"><canvas id="c2"></canvas></div></div>
+<p class="so" id="s3"></p>
+<div class="box"><b>Assumptions.</b> Errors are measured over t = 5 to 22 using the same data. Safety stock assumes forecast errors are roughly normal and independent between quarters. Holding cost is your own input; no number is assumed. These are estimated impacts, not guaranteed savings.</div></div>
+<h2>Next-quarter forecast (Q3 FY27)</h2>
+<div class="c" id="nf"></div>
+<h2>Roadmap, risks and limits</h2>
+<div class="sw"><div><h4>Roadmap</h4><ul><li>Now: switch the planning forecast to the blend</li><li>Next quarter: compare forecast with actual dispatches</li><li>Within two quarters: set safety stock from measured error</li><li>Ongoing: split forecasts by PV, CV and EV</li></ul></div>
+<div><h4>Risks and fixes</h4><ul><li>Surge fades: review monthly, keep flexible shifts</li><li>Supplier delays: share the forecast range, not one number</li><li>Model drift: re-score every quarter</li></ul></div>
+<div><h4>Limits of this study</h4><ul><li>Only 22 quarters, with a structural jump near the end</li><li>Wholesale, not retail, volumes</li><li>FY23 split and Q1 FY27 are partly derived</li></ul></div></div>
+<h2>Conclusion</h2>
+<div class="c" id="cn"></div>
+</section>
+</main>
+<footer>Data: Tata Motors quarterly sales releases (tatamotors.com/volumes), compiled 2 Oct 2026. Wholesale volumes for the India auto business (CV + PV incl. EV), JLR excluded. Verify a few quarters against the official page before submitting.</footer>
+<script>
+/*CALC*/
+const Q=[[1,"Q1 FY22","FY22",114784,null,null],[2,"Q2 FY22","FY22",171270,null,null],[3,"Q3 FY22","FY22",199633,null,null],[4,"Q4 FY22","FY22",243459,null,null],[5,"Q1 FY23","FY23",231248,100921,130327],[6,"Q2 FY23","FY23",243387,100536,142851],[7,"Q3 FY23","FY23",228169,95914,132255],[8,"Q4 FY23","FY23",251822,116168,135654],[9,"Q1 FY24","FY24",226245,85795,140450],[10,"Q2 FY24","FY24",243024,104085,138939],[11,"Q3 FY24","FY24",234981,96526,138455],[12,"Q4 FY24","FY24",265090,109439,155651],[13,"Q1 FY25","FY25",229891,91209,138682],[14,"Q2 FY25","FY25",215034,84281,130753],[15,"Q3 FY25","FY25",235599,95770,139829],[16,"Q4 FY25","FY25",252642,105643,146999],[17,"Q1 FY26","FY26",210415,85606,124809],[18,"Q2 FY26","FY26",239078,94681,144397],[19,"Q3 FY26","FY26",286590,115577,171013],[20,"Q4 FY26","FY26",333833,132465,201368],[21,"Q1 FY27","FY27",291062,108488,182574],[22,"Q2 FY27","FY27",336837,135114,201723]];
+const A=[["FY22",729146,null,null,19106],["FY23",954626,413539,541087,null],["FY24",969340,395845,573495,73833],["FY25",933166,376903,556263,64276],["FY26",1069916,428329,641587,92120],["FY27 H1",627899,243602,384297,null]];
+const tot=Q.map(r=>r[3]),N=22;
+const avg=a=>a.reduce((s,x)=>s+x,0)/a.length;
+function naive(){const f=[null];for(let i=1;i<=N;i++)f.push(tot[i-1]);return f}
+function sma(k){const f=[];for(let i=0;i<=N;i++)f.push(i<k?null:avg(tot.slice(i-k,i)));return f}
+function wma(){const w=[1,2,3,4],f=[];for(let i=0;i<=N;i++)f.push(i<4?null:tot.slice(i-4,i).reduce((s,x,j)=>s+x*w[j],0)/10);return f}
+function ses(a){const f=[null,tot[0]];for(let i=2;i<=N;i++)f.push(a*tot[i-1]+(1-a)*f[i-1]);return f}
+function holt(a,b){let L=tot[0],T=tot[1]-tot[0];const f=[null];for(let i=1;i<=N;i++){f.push(L+T);if(i<N){const Ln=a*tot[i]+(1-a)*(L+T);T=b*(Ln-L)+(1-b)*T;L=Ln}}return f}
+function hw(a,b,g){let L=avg(tot.slice(0,4)),T=(avg(tot.slice(4,8))-L)/4;const S=[0,1,2,3].map(i=>tot[i]/L),f=[null,null,null,null];for(let i=4;i<=N;i++){f.push((L+T)*S[i-4]);if(i<N){const Ln=a*tot[i]/S[i-4]+(1-a)*(L+T);T=b*(Ln-L)+(1-b)*T;S.push(g*tot[i]/Ln+(1-g)*S[i-4]);L=Ln}}return f}
+function snv(){const f=[];for(let i=0;i<=N;i++)f.push(i<4?null:tot[i-4]);return f}
+function reg(){const n=N,xs=tot.map((_,i)=>i+1),mx=avg(xs),my=avg(tot);let sxy=0,sxx=0;xs.forEach((x,i)=>{sxy+=(x-mx)*(tot[i]-my);sxx+=(x-mx)**2});const b=sxy/sxx,a=my-b*mx,f=[];for(let i=0;i<=N;i++)f.push(a+b*(i+1));return f}
+function blend(){const n=naive(),m=sma(4);return n.map((v,i)=>i<4?null:(v+m[i])/2)}
+function met(f){let ad=0,sq=0,ap=0,e=0,n=0;for(let i=4;i<N;i++){const d=tot[i]-f[i];ad+=Math.abs(d);sq+=d*d;ap+=Math.abs(d)/tot[i];e+=d;n++}return{mad:ad/n,mse:sq/n,rmse:Math.sqrt(sq/n),mape:ap/n*100,bias:e/n}}
+function methods(p){return[
+{id:"naive",n:"Naive",f:naive()},{id:"sma",n:"Moving average ("+p.k+"Q)",f:sma(p.k)},{id:"wma",n:"Weighted moving average (4Q)",f:wma()},
+{id:"ses",n:"Simple exp. smoothing",f:ses(p.a)},{id:"holt",n:"Holt trend",f:holt(p.a,p.b)},{id:"hw",n:"Holt-Winters (seasonal)",f:hw(p.a,p.b,p.g)},
+{id:"sn",n:"Seasonal naive",f:snv()},{id:"reg",n:"Linear regression *",f:reg()},{id:"blend",n:"Blend: naive + 4Q average",f:blend()}]}
+/*ENDCALC*/
+const $=id=>document.getElementById(id),fmt=n=>Math.round(n).toLocaleString('en-US'),ch={};
+const cs=getComputedStyle(document.documentElement);Chart.defaults.color=cs.getPropertyValue('--mut').trim()||'#5b6b82';Chart.defaults.borderColor=cs.getPropertyValue('--line').trim()||'#dde3ec';Chart.defaults.font.family="'IBM Plex Sans','Segoe UI',sans-serif";
+const NV='#0B2545',ST='#13315C',TL='#1B998B',AM='#F4A259',RD='#c5372c',GR='#8aa0c2',BL='#3b6fb6';
+function mk(id,cfg){if(ch[id])ch[id].destroy();cfg.options=Object.assign({responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}},cfg.options||{});ch[id]=new Chart($(id),cfg)}
+const ax=(x,y)=>({x:{title:{display:!!x,text:x}},y:{title:{display:!!y,text:y}}});
+const ql=Q.map(r=>r[1]);
+function yoy(i){return i>=4?(tot[i]/tot[i-4]-1)*100:null}
+function draw1(){
+const last=A[4];
+$('k1').innerHTML=[['FY26 volume',fmt(A[4][1]),'units'],['FY26 growth','+'+((A[4][1]/A[3][1]-1)*100).toFixed(1)+'%','vs FY25 (933,166)'],['PV share FY26',(A[4][3]/A[4][1]*100).toFixed(1)+'%','CV share '+(A[4][2]/A[4][1]*100).toFixed(1)+'%'],['EV units FY26',fmt(A[4][4]),((A[4][4]/A[4][3])*100).toFixed(1)+'% of PV'],['Q2 FY27 volume',fmt(tot[21]),'+'+yoy(21).toFixed(1)+'% YoY']].map(k=>`<div class="k"><span>${k[0]}</span><b>${k[1]}</b><span>${k[2]}</span></div>`).join('');
+mk('a1',{type:'line',data:{labels:ql,datasets:[{label:'Total sales',data:tot,borderColor:TL,backgroundColor:TL,tension:.25,pointRadius:3}]},options:{scales:ax('Quarter','Units')}});
+mk('a2',{type:'bar',data:{labels:ql.slice(4),datasets:[{label:'CV',data:Q.slice(4).map(r=>r[4]),backgroundColor:ST},{label:'PV (incl. EV)',data:Q.slice(4).map(r=>r[5]),backgroundColor:AM}]},options:{scales:{x:{stacked:true,title:{display:true,text:'Quarter'}},y:{stacked:true,title:{display:true,text:'Units'}}}}});
+const y=Q.map((_,i)=>yoy(i));
+mk('a3',{type:'bar',data:{labels:ql.slice(4),datasets:[{label:'Total YoY %',data:y.slice(4),backgroundColor:y.slice(4).map(v=>v>=0?TL:RD)}]},options:{plugins:{legend:{display:false}},scales:ax('Quarter','% change vs same quarter last year')}});
+mk('a4',{type:'bar',data:{labels:A.map(r=>r[0]),datasets:[{label:'Total units',data:A.map(r=>r[1]),backgroundColor:A.map((r,i)=>i==5?AM:ST)}]},options:{plugins:{legend:{display:false}},scales:ax('Fiscal year (FY27 = Apr to Sep 2026 only)','Units')}});
+const ev=A.filter(r=>r[4]);
+mk('a5',{data:{labels:ev.map(r=>r[0]),datasets:[{type:'bar',label:'EV units',data:ev.map(r=>r[4]),backgroundColor:TL,yAxisID:'y'},{type:'line',label:'EV share of PV (%)',data:ev.map(r=>r[3]?r[4]/r[3]*100:null),borderColor:AM,backgroundColor:AM,yAxisID:'y1',spanGaps:false}]},options:{scales:{y:{title:{display:true,text:'EV units'}},y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'% of PV'}}}}});
+const sh=[0,1,2,3].map(q=>avg([0,1,2,3,4].map(f=>tot[f*4+q]/A[f][1]*100)));
+mk('a6',{type:'bar',data:{labels:['Q1 (Apr-Jun)','Q2 (Jul-Sep)','Q3 (Oct-Dec)','Q4 (Jan-Mar)'],datasets:[{label:'Average share of annual volume %',data:sh,backgroundColor:[ST,ST,ST,AM]}]},options:{plugins:{legend:{display:false}},scales:ax('Quarter of fiscal year','% of annual volume')}});
+}
+const P=()=>({a:+$('sa').value,b:+$('sb').value,g:+$('sg').value,k:+$('sk').value});
+function draw2(){
+const p=P();$('va').textContent=p.a;$('vb').textContent=p.b;$('vg').textContent=p.g;$('vk').textContent=p.k;
+const M=methods(p);M.forEach(m=>{m.m=met(m.f);m.nx=m.f[N]});
+const cols=[GR,BL,'#7a5cc4',AM,'#d4537e','#8a6d1d','#6b7a90',ST,TL],on=['naive','sma','ses','blend'];
+mk('b1',{type:'line',data:{labels:ql.concat(['Q3 FY27 (forecast)']),datasets:[{label:'Actual',data:tot,borderColor:RD,backgroundColor:RD,borderWidth:3,pointRadius:3}].concat(M.map((m,i)=>({label:m.n,data:m.f,borderColor:cols[i],backgroundColor:cols[i],borderWidth:1.6,pointRadius:1.5,borderDash:m.id=='blend'?[]:[5,3],hidden:!on.includes(m.id)})))},options:{scales:ax('Quarter','Units')}});
+const rk=M.filter(m=>m.id!='reg').sort((a,b)=>a.m.mape-b.m.mape),bm=rk[0],br=[...rk].sort((a,b)=>a.m.rmse-b.m.rmse)[0];
+$('s1').textContent='Over t = 5 to 22, '+bm.n+' has the lowest MAPE ('+bm.m.mape.toFixed(2)+'%) and '+br.n+' has the lowest RMSE ('+fmt(br.m.rmse)+' units). '+M.filter(m=>m.m.bias>0).length+' of '+M.length+' methods have a positive average error (actual above forecast), because volume rose faster than the past suggested.';
+mk('b2',{type:'bar',data:{labels:M.map(m=>m.n),datasets:[{label:'MAPE %',data:M.map(m=>+m.m.mape.toFixed(2)),backgroundColor:M.map(m=>m===bm?TL:(m.id=='reg'?GR:ST))}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:ax('MAPE (%)','')}});
+$('tb').innerHTML='<tr><th>Method</th><th>MAD</th><th>RMSE</th><th>MAPE %</th><th>Bias</th><th>Q3 FY27</th></tr>'+M.map(m=>`<tr class="${m===bm?'best':''}"><td>${m.n}</td><td>${fmt(m.m.mad)}</td><td>${fmt(m.m.rmse)}</td><td>${m.m.mape.toFixed(2)}</td><td>${fmt(m.m.bias)}</td><td>${fmt(m.nx)}</td></tr>`).join('');
+const s=ses(.3);
+$('fm').innerHTML=`<p style="margin-top:0"><b>Error measures.</b> Error = actual minus forecast. MAD = average of |error|. MSE = average of error squared. RMSE = square root of MSE. MAPE = average of |error| / actual, as a percentage. Bias = average error.</p><p><b>Smoothing.</b> Next forecast = alpha x last actual + (1 - alpha) x last forecast. Holt adds a trend term. Holt-Winters adds four seasonal factors.</p><p style="margin-bottom:0"><b>Worked example (SES, alpha = 0.3, Q2 FY27).</b> Forecast = 0.3 x ${fmt(tot[20])} + 0.7 x ${fmt(s[20])} = <b>${fmt(s[21])}</b>. Actual was ${fmt(tot[21])}, so the error is ${fmt(tot[21]-s[21])} units (${((tot[21]-s[21])/tot[21]*100).toFixed(1)}% of actual).</p>`;
+const ex=[['Naive',naive(),10.45,26977,29987],['Moving avg (4Q)',sma(4),9.28,24809,32984],['SES (alpha 0.3)',ses(.3),10.88,28804,36310],['Seasonal naive',snv(),13.56,36096,51131]];
+$('vt').innerHTML='<tr><th>Method</th><th>MAPE here</th><th>MAPE Excel</th><th>MAD here</th><th>MAD Excel</th><th>RMSE here</th><th>RMSE Excel</th><th>Match</th></tr>'+ex.map(e=>{const m=met(e[1]),ok=m.mape.toFixed(2)==e[2].toFixed(2)&&Math.round(m.mad)==e[3]&&Math.round(m.rmse)==e[4];return`<tr><td>${e[0]}</td><td>${m.mape.toFixed(2)}</td><td>${e[2]}</td><td>${fmt(m.mad)}</td><td>${fmt(e[3])}</td><td>${fmt(m.rmse)}</td><td>${fmt(e[4])}</td><td class="${ok?'up':'dn'}">${ok?'Yes':'No'}</td></tr>`}).join('');
+}
+function scen(){const z=+$('z').value,L=+$('lt').value||1,h=+$('hc').value||0,c=met(sma(4)),r=met(blend());
+return{z,L,h,c,r,ssC:z*c.rmse*Math.sqrt(L),ssR:z*r.rmse*Math.sqrt(L)}}
+let sel=1;
+function draw3(){
+const p={a:.3,b:.1,g:.3,k:4},M=methods(p).filter(m=>m.id!='reg');M.forEach(m=>m.m=met(m.f));
+const bm=[...M].sort((a,b)=>a.m.mape-b.m.mape)[0],br=[...M].sort((a,b)=>a.m.rmse-b.m.rmse)[0],o=scen();
+const late=f=>{let s=0;for(let i=16;i<N;i++)s+=Math.abs(tot[i]-f[i])/tot[i];return s/6*100},early=f=>{let s=0;for(let i=4;i<16;i++)s+=Math.abs(tot[i]-f[i])/tot[i];return s/12*100},ma=sma(4);
+$('rs').innerHTML=`<p style="margin-top:0">Lowest MAPE: <b>${bm.n}</b> (${bm.m.mape.toFixed(2)}%). Lowest RMSE: <b>${br.n}</b> (${fmt(br.m.rmse)} units). Safety stock depends on RMSE, so the recommended planning forecast is the blend of the naive forecast and the 4-quarter average (MAPE ${o.r.mape.toFixed(2)}%, against ${o.c.mape.toFixed(2)}% for the plain 4-quarter average). The weighted 4-quarter average is a close alternative: MAPE ${M.find(m=>m.id=='wma').m.mape.toFixed(2)}%, RMSE ${fmt(M.find(m=>m.id=='wma').m.rmse)}.</p><p style="margin-bottom:0">The 4-quarter average was off by ${early(ma).toFixed(1)}% on average in t = 5 to 16 but ${late(ma).toFixed(1)}% in the last six quarters (t = 17 to 22). No method here handles the post-Q2 FY26 jump well, so every forecast carries upside risk.</p>`;
+const f=blend()[N],rg=1.96*o.r.rmse;
+$('nf').innerHTML=`<div class="tw"><table><tr><th>Method</th><th>Q3 FY27 forecast</th></tr>${M.map(m=>`<tr class="${m===br?'best':''}"><td>${m.n}</td><td>${fmt(m.f[N])}</td></tr>`).join('')}</table></div><p class="so">Recommended blend: <b>${fmt(f)}</b> units, with an approximate range of ${fmt(f-rg)} to ${fmt(f+rg)} (plus or minus 1.96 x RMSE of the blend). Only the next quarter is forecast, because errors compound when forecasting further out.</p>`;
+const d=o.ssC-o.ssR,v=sel?o.r:o.c,ss=sel?o.ssR:o.ssC;
+$('k3').innerHTML=[['MAPE',v.mape.toFixed(2)+'%'],['RMSE (units)',fmt(v.rmse)],['Safety stock (units)',fmt(ss)],['Holding cost on safety stock / yr',o.h?'INR '+fmt(ss*o.h):'enter cost above']].map(k=>`<div class="k"><span>${k[0]}</span><b>${k[1]}</b></div>`).join('');
+mk('c1',{type:'bar',data:{labels:['MAPE %'],datasets:[{label:'Current',data:[+o.c.mape.toFixed(2)],backgroundColor:GR},{label:'Recommended',data:[+o.r.mape.toFixed(2)],backgroundColor:TL}]},options:{scales:ax('','Error (%)')}});
+mk('c2',{type:'bar',data:{labels:['RMSE','Safety stock'],datasets:[{label:'Current',data:[Math.round(o.c.rmse),Math.round(o.ssC)],backgroundColor:GR},{label:'Recommended',data:[Math.round(o.r.rmse),Math.round(o.ssR)],backgroundColor:TL}]},options:{scales:ax('','Units')}});
+$('s3').textContent='Estimated effect: RMSE falls '+((1-o.r.rmse/o.c.rmse)*100).toFixed(1)+'%, so safety stock at this service level drops by about '+fmt(d)+' units'+(o.h?', worth roughly INR '+fmt(d*o.h)+' a year in holding cost':'')+'.';
+$('cn').innerHTML=`<p style="margin:0">Tata Motors' volumes grew strongly from Q3 FY26, and simple averaging methods fell behind that change. A blend of the last quarter and the 4-quarter average gave the smallest typical error (RMSE ${fmt(o.r.rmse)} units) and a similar percentage error, which supports tighter safety stock. Keep re-testing each quarter, and treat the current surge as the biggest planning risk until its causes are confirmed.</p>`;
+}
+const draws={p1:draw1,p2:draw2,p3:draw3};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.p));draws[b.dataset.p]();window.scrollTo(0,0)});
+['sa','sb','sg','sk'].forEach(i=>$(i).oninput=draw2);['z','lt','hc'].forEach(i=>$(i).oninput=draw3);
+[0,1].forEach(i=>$('sc'+i).onclick=()=>{sel=i;$('sc0').classList.toggle('on',i==0);$('sc1').classList.toggle('on',i==1);draw3()});
+draw1();
+</script></body></html>
